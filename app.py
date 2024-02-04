@@ -34,11 +34,11 @@ selected_tool_crew = st.selectbox("Select Tool for Crew", ["DuckDuckGoSearchRun"
 # Loop to create agents
 for i in range(num_agents):
     st.write(f"Agent {i + 1}")
-    role = st.text_input("Role", f"Agent{i + 1}")
-    goal = st.text_area("Goal", f"Agent{i + 1} goal")
-    backstory = st.text_area("Backstory", f"You are an AI {role}")
-    verbose = st.checkbox("Verbose", True)
-    allow_delegation = st.checkbox("Allow Delegation", False)
+    role = st.text_input(f"Role {i + 1}", f"Agent{i + 1}")
+    goal = st.text_area(f"Goal {i + 1}", f"Agent{i + 1} goal")
+    backstory = st.text_area(f"Backstory {i + 1}", f"You are an AI {role}")
+    verbose = st.checkbox(f"Verbose {i + 1}", True)
+    allow_delegation = st.checkbox(f"Allow Delegation {i + 1}", False)
 
     # Choose LLM and Tools for individual agents
     st.subheader(f"Choose LLM and Tools for Agent {i + 1}")
@@ -52,7 +52,7 @@ agent{i + 1} = Agent(
     backstory='{backstory}',
     tools=[{selected_tool_crew}, {selected_tool_agent}],
     verbose={verbose},
-    llm={selected_llm_crew if i == 0 else selected_llm_agent},
+    llm='{selected_llm_crew}' if i == 0 else '{selected_llm_agent}',
     allow_delegation={allow_delegation}
 )
 """
@@ -60,8 +60,8 @@ agent{i + 1} = Agent(
 
 for i in range(num_tasks):
     st.write(f"Task {i + 1}")
-    description = st.text_input("Description", f"Task{i + 1} description")
-    assigned_agent = st.selectbox(f"Assign to Agent", [f"agent{j + 1}" for j in range(num_agents)])
+    description = st.text_input(f"Description {i + 1}", f"Task{i + 1} description")
+    assigned_agent = st.selectbox(f"Assign to Agent {i + 1}", [f"agent{j + 1}" for j in range(num_agents)])
 
     task_code = f"""
 task{i + 1} = Task(description='{description}', agent={assigned_agent})
